@@ -1,10 +1,10 @@
 Create a Website on S3 (mod2 act2)
 
-aws s3api create-bucket --bucket cafestatic --region us-east-1
+aws s3api create-bucket --bucket cafestatic --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1  
 
 aws s3 ls //date time bucketname
 
-aws s3api put-bucket-ownership-controls --bucket cafestatic --ownership-controls "Rules=[{ObjectOwnership=BucketOwnerPreferred}]"
+aws s3api put-bucket-ownership-controls --bucket cafestatic --ownership-controls "Rules=[{ObjectOwnership=BucketOwnerPreferred}]"  
 
 aws s3api put-public-access-block --bucket cafestatic --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false" 
 
