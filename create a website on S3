@@ -56,3 +56,33 @@ aws s3 cp ~/sysops-activity-files/ s3://cafestatic --recursive --acl public-read
 
 chmod +x update-website.sh
 
+
+
+bacth file---------------------
+
+aws s3 ls s3://sls-aman-169
+history
+cd -
+cd
+touch update-website.sh
+ls
+sudo nano update-website.sh
+chmod +x update-website.sh
+sudo nano update-website.sh
+sudo nano sysops-activity-files/index.html
+ls
+./update-website.sh
+
+
+---------------------
+
+<td bgcolor="cornsilk">
+  <div class="cursiveText">Pop bakes a rich variety of cookies. Try them all!</div>
+    <table>
+      <tr>
+        <td><img src="images/Cookies.png" height=auto width="300"></td>
+      </tr>
+    </table>
+</td>
+<td bgcolor="red">
+  <table>
