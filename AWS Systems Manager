@@ -1,0 +1,25 @@
+AWS Systems Manager (mod2 lab1) - Using AWS Systems Manager
+
+http://172.18.181.60:8000/Sytems_Manager/InstallLAMPStackRedHat_Run_Document.txt
+
+{
+  "schemaVersion": "2.2",
+  "description": "Install LAMP Stack and Echo Sample Index Page",
+  "mainSteps": [
+    {
+      "action": "aws:runShellScript",
+      "name": "installLAMP",
+      "inputs": {
+        "runCommand": [
+          "sudo yum install httpd mariadb-server",
+          "sudo systemctl enable httpd",
+          "sudo systemctl enable mariadb-server",
+          "sudo systemctl start httpd",
+          "sudo systemctl start mariadb-server",
+          "echo '<html><head><title>Hello, Welcome!</title></head><body><h1>Hello, Welcome to LAMP Stack deployed using Systems Manager Run Command</h1></body></html>' | sudo tee /var/www/html/index.html"
+        ]
+      }
+    }
+  ]
+}
+
