@@ -1,0 +1,60 @@
+Working with AWS cloud trail (mod9 act9)
+
+### Linux Commands to analyze Data###
+
+
+cat <filename.json> | python -m json.tool
+
+
+### Ec2 instance activities####
+
+
+ip=<webserverip> 
+
+
+for i in $(ls); do echo $i && cat $i | python -m json.tool | grep sourceIPAddress ; done
+
+for i in $(ls); do echo $i && cat $i | python -m json.tool | grep eventName ; done
+
+
+### Analyze the logs by using AWS CLI cloudtrail commands####
+
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=ConsoleLogin
+
+
+###Run this command to find any actions that were taken on security groups in the AWS account:####
+
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=ResourceType,AttributeValue=AWS::EC2::SecurityGroup --output text 
+
+
+###Run the following commands to find the security group ID that is used by the Cafe Web Server instance, and then echo the result to the terminal:#####
+
+region=$(curl http://169.254.169.254/latest/dynamic/instance-identity/document|grep region | cut -d '"' -f4)
+
+sgId=$(aws ec2 describe-instances --filters "Name=tag:Name,Values='Cafe Web Server'" --query 'Reservations[*].Instances[*].SecurityGroups[*].[GroupId]' --region $region --output text)
+
+echo $sgId
+
+
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=ResourceType,AttributeValue=AWS::EC2::SecurityGroup --region $region --output text | grep $sgId  
+
+
+
+
+#### Athena Querry####
+
+
+SELECT *
+FROM cloudtrail_logs_monitoring####
+LIMIT 5
+
+
+
+SELECT useridentity.userName, eventtime, eventsource, eventname, requestparameters
+FROM cloudtrail_logs_monitoring####
+LIMIT 30
+
+
+
+SELECT DISTINCT useridentity.userName, eventName, eventSource FROM cloudtrail_logs_monitoring#### WHERE from_iso8601_timestamp(eventtime) > date_add('day', -1, now()) ORDER BY eventSource;
+
