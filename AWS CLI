@@ -1,0 +1,133 @@
+AWS CLI (mod1 act1)
+http://172.18.181.60:8000/AWS_CLI_Basics.txt
+
+
+##### AWS CLI Install#######
+
+python3 --version
+sudo yum install python-pip
+sudo pip3 install awscli
+
+aws configure
+
+##################################
+
+
+#########AWS Cli Install Steps###########
+
+sudo yum install unzip
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+aws help
+
+############################################################
+
+
+###### AWS IAM User List and His Policy############
+
+aws iam list-users
+
+aws iam list-attached-user-policies --user-name awsstudent
+
+aws iam list-user-policies --user-name awsstudent
+
+
+
+
+aws iam list-policies --query "Policies[?PolicyName=='lab_policy'].Arn" --output text
+
+
+aws iam get-policy --policy-arn <PolicyArn> --query 'Policy.DefaultVersionId' --output text
+
+
+aws iam get-policy-version --policy-arn arn:aws:iam::258319184548:policy/lab_policy --version-id v1 --query 'PolicyVersion.Document' --output json > lab_policy.json
+
+
+
+###############################################################
+
+
+
+##### AWS IAM User Policy List Shell SCRIPT#########################
+
+
+
+#!/bin/bash
+USER_NAME="awsstudent"
+
+echo "Directly Attached Policies:"
+aws iam list-attached-user-policies --user-name "$USER_NAME"
+
+echo "Inline Policies:"
+aws iam list-user-policies --user-name "$USER_NAME"
+
+echo "Groups and Their Policies:"
+GROUPS=$(aws iam list-groups-for-user --user-name "$USER_NAME" --query 'Groups[*].GroupName' --output text)
+
+for GROUP in $GROUPS; do
+  echo "Group: $GROUP"
+  echo "Attached Policies:"
+  aws iam list-attached-group-policies --group-name "$GROUP"
+  echo "Inline Policies:"
+  aws iam list-group-policies --group-name "$GROUP"
+done
+
+
+
+
+################### AWS CLI Launch Instances ################### 
+
+
+aws ec2 run-instances  --region us-east-1 --image-id "ami-0c7217cdde317cfec" --count 1 --instance-type t2.micro --associate-public-ip-address --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=WebServer}]'  
+
+
+aws ec2 run-instances  --region us-east-1 --image-id "ami-0c7217cdde317cfec" --count 1 --instance-type t2.micro --associate-public-ip-address  --iam-instance-profile Name=EC2_SSM_S3_Role_SHV --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=SSMTestServer}]'  
+
+
+aws ec2 run-instances  --region us-east-1 --image-id "ami-0c7217cdde317cfec" --count 1 --instance-type t2.micro --associate-public-ip-address  --iam-instance-profile Name=EC2SSMRole --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=SSMTestServer}]'  
+
+## More Detailed One################
+
+aws ec2 run-instances \
+    --image-id <your-ami-id> \
+    --instance-type <your-instance-type> \
+    --key-name <your-key-pair-name> \
+    --subnet-id <your-subnet-id> \
+    --security-group-ids <your-security-group-id> \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=<your-instance-name>}]'
+
+
+####### AWS CLI S3 Bucket Creation and Static Website Hosting###################
+
+aws s3api create-bucket --bucket cafestatic --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1  
+
+
+aws s3api put-bucket-ownership-controls --bucket cafestatic --ownership-controls "Rules=[{ObjectOwnership=BucketOwnerPreferred}]"  
+
+
+aws s3api put-public-access-block --bucket cafestatic --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false" 
+
+
+
+aws s3 website s3://cafestatic --index-document index.html  
+
+
+aws s3 cp . s3://cafestatic --recursive --acl public-read  
+
+
+aws s3 ls cafestatic 
+
+
+##update bucket contents####
+
+vi update-website.sh
+
+#!/bin/bash
+aws s3 cp ~/sysops-activity-files/ s3://cafestatic --recursive --acl public-read 
+
+chmod +x update-website.sh
+
+
