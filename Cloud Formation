@@ -1,0 +1,130 @@
+Cloud Formation (mod11 act11)
+
+##########################
+
+
+#########Create Stack##########
+
+
+aws cloudformation create-stack \
+--stack-name myStack \
+--template-body file://template1.yaml \
+--capabilities CAPABILITY_NAMED_IAM \
+--parameters ParameterKey=KeyName,ParameterValue=vockey
+
+
+##### WAIT and Check for status of stack Resources #########
+
+watch -n 5 -d \
+aws cloudformation describe-stack-resources \
+--stack-name myStack \
+--query 'StackResources[*].[ResourceType,ResourceStatus]' \
+--output table
+
+##### WAIT and Check for status of stack#########
+
+
+watch -n 5 -d \
+aws cloudformation describe-stacks \
+--stack-name myStack \
+--output table
+
+
+### Status of why stack failed###########
+
+
+aws cloudformation describe-stack-events \
+--stack-name myStack \
+--query "StackEvents[?ResourceStatus == 'CREATE_FAILED']"
+
+
+#####Delete Stack###########
+
+aws cloudformation delete-stack --stack-name myStack
+
+
+#####Create stack without rollback############
+
+aws cloudformation create-stack \
+--stack-name myStack \
+--template-body file://template1.yaml \
+--capabilities CAPABILITY_NAMED_IAM \
+--on-failure DO_NOTHING \
+--parameters ParameterKey=KeyName,ParameterValue=vockey
+
+
+##### Ip adress of stack created webser##########
+
+
+aws ec2 describe-instances \
+--filters "Name=tag:Name,Values='Web Server'" \
+--query 'Reservations[].Instances[].[State.Name,PublicIpAddress]'
+
+
+##### Cloud init log and userdata scripts##########
+
+sudo tail -50 /var/log/cloud-init-output.log
+
+sudo cat /var/lib/cloud/instance/scripts/part-001
+
+###### Manualy make chages to stack resources######
+
+
+CHANGE WEB SERVER SG RULE
+
+ADD Files to s3 bucket. 
+
+bucketName=$(\
+aws cloudformation describe-stacks \
+--stack-name myStack \
+--query "Stacks[*].Outputs[?OutputKey \
+== 'BucketName'].[OutputValue]" \
+--output text)
+echo "bucketName = "$bucketName
+
+
+#########detect stack drift############
+
+
+aws cloudformation detect-stack-drift --stack-name myStack
+
+
+aws cloudformation describe-stack-drift-detection-status \
+--stack-drift-detection-id <driftId>>>
+
+aws cloudformation describe-stack-resource-drifts \
+--stack-name myStack
+
+aws cloudformation describe-stack-resources \
+--stack-name myStack \
+--query 'StackResources[*].[ResourceType,ResourceStatus,DriftInformation.StackResourceDriftStatus]' \
+--output table
+
+
+
+aws cloudformation describe-stack-resource-drifts \
+--stack-name myStack \
+--stack-resource-drift-status-filters MODIFIED
+
+
+### try updating the stack ########
+
+
+aws cloudformation update-stack \
+--stack-name myStack \
+--template-body file://template1.yaml \
+--parameters ParameterKey=KeyName,ParameterValue=vockey
+
+
+###### now try to delete stack#############
+
+
+aws cloudformation delete-stack --stack-name myStack
+
+watch -n 5 -d \
+aws cloudformation describe-stack-resources \
+--stack-name myStack \
+--query 'StackResources[*].[ResourceType,ResourceStatus]' \
+--output table
+
+
