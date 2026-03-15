@@ -1,0 +1,525 @@
+Mod3 activivty3-troubleshoot create instance
+
+msis@msis-HP-Pro-Tower-400-G9-PCI-Desktop-PC:~$ cd Downloads/
+msis@msis-HP-Pro-Tower-400-G9-PCI-Desktop-PC:~/Downloads$ ls
+labsuser.pem
+msis@msis-HP-Pro-Tower-400-G9-PCI-Desktop-PC:~/Downloads$ sudo chmod 600 labsuser.pem 
+[sudo] password for msis: 
+Sorry, try again.
+[sudo] password for msis: 
+msis@msis-HP-Pro-Tower-400-G9-PCI-Desktop-PC:~/Downloads$ sudo ssh -i labsuser.pem  ec2-user@100.52.223.158
+The authenticity of host '100.52.223.158 (100.52.223.158)' can't be established.
+ED25519 key fingerprint is SHA256:AtwbZC63rr8tyGCixkUSF3mYyygOwLo19gchGegL7BA.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '100.52.223.158' (ED25519) to the list of known hosts.
+   ,     #_
+   ~\_  ####_        Amazon Linux 2
+  ~~  \_#####\
+  ~~     \###|       AL2 End of Life is 2026-06-30.
+  ~~       \#/ ___
+   ~~       V~' '->
+    ~~~         /    A newer version of Amazon Linux is available!
+      ~~._.   _/
+         _/ _/       Amazon Linux 2023, GA and supported until 2028-03-15.
+       _/m/'           https://aws.amazon.com/linux/amazon-linux-2023/
+
+[ec2-user@cli-host ~]$ aws configure
+AWS Access Key ID [None]: xyz
+AWS Secret Access Key [None]: abc
+Default region name [None]: us-east-1
+Default output format [None]: json
+[ec2-user@cli-host ~]$ ~/.aws/credentials
+-bash: /home/ec2-user/.aws/credentials: Permission denied
+[ec2-user@cli-host ~]$ ~/.aws/credentials
+-bash: /home/ec2-user/.aws/credentials: Permission denied
+[ec2-user@cli-host ~]$ sudo nano ~/.aws/credentials
+[ec2-user@cli-host ~]$ aws ec2 describr-instances
+Note: AWS CLI version 2, the latest major version of the AWS CLI, is now stable and recommended for general use. For more information, see the AWS CLI version 2 installation instructions at: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+aws: error: argument operation: Invalid choice, valid choices are:
+
+accept-reserved-instances-exchange-quote | accept-transit-gateway-peering-attachment
+accept-transit-gateway-vpc-attachment    | accept-vpc-endpoint-connections         
+accept-vpc-peering-connection            | advertise-byoip-cidr                    
+allocate-address                         | allocate-hosts                          
+apply-security-groups-to-client-vpn-target-network | assign-ipv6-addresses                   
+assign-private-ip-addresses              | associate-address                       
+associate-client-vpn-target-network      | associate-dhcp-options                  
+associate-iam-instance-profile           | associate-route-table                   
+associate-subnet-cidr-block              | associate-transit-gateway-multicast-domain
+associate-transit-gateway-route-table    | associate-vpc-cidr-block                
+attach-classic-link-vpc                  | attach-internet-gateway                 
+attach-network-interface                 | attach-volume                           
+attach-vpn-gateway                       | authorize-client-vpn-ingress            
+authorize-security-group-egress          | authorize-security-group-ingress        
+bundle-instance                          | cancel-bundle-task                      
+cancel-capacity-reservation              | cancel-conversion-task                  
+cancel-export-task                       | cancel-import-task                      
+cancel-reserved-instances-listing        | cancel-spot-fleet-requests              
+cancel-spot-instance-requests            | confirm-product-instance                
+copy-fpga-image                          | copy-image                              
+copy-snapshot                            | create-capacity-reservation             
+create-carrier-gateway                   | create-client-vpn-endpoint              
+create-client-vpn-route                  | create-customer-gateway                 
+create-default-subnet                    | create-default-vpc                      
+create-dhcp-options                      | create-egress-only-internet-gateway     
+create-fleet                             | create-flow-logs                        
+create-fpga-image                        | create-image                            
+create-instance-export-task              | create-internet-gateway                 
+create-key-pair                          | create-launch-template                  
+create-launch-template-version           | create-local-gateway-route              
+create-local-gateway-route-table-vpc-association | create-managed-prefix-list              
+create-nat-gateway                       | create-network-acl                      
+create-network-acl-entry                 | create-network-interface                
+create-network-interface-permission      | create-placement-group                  
+create-reserved-instances-listing        | create-route                            
+create-route-table                       | create-security-group                   
+create-snapshot                          | create-snapshots                        
+create-spot-datafeed-subscription        | create-subnet                           
+create-tags                              | create-traffic-mirror-filter            
+create-traffic-mirror-filter-rule        | create-traffic-mirror-session           
+create-traffic-mirror-target             | create-transit-gateway                  
+create-transit-gateway-multicast-domain  | create-transit-gateway-peering-attachment
+create-transit-gateway-prefix-list-reference | create-transit-gateway-route            
+create-transit-gateway-route-table       | create-transit-gateway-vpc-attachment   
+create-volume                            | create-vpc                              
+create-vpc-endpoint                      | create-vpc-endpoint-connection-notification
+create-vpc-endpoint-service-configuration | create-vpc-peering-connection           
+create-vpn-connection                    | create-vpn-connection-route             
+create-vpn-gateway                       | delete-carrier-gateway                  
+delete-client-vpn-endpoint               | delete-client-vpn-route                 
+delete-customer-gateway                  | delete-dhcp-options                     
+delete-egress-only-internet-gateway      | delete-fleets                           
+delete-flow-logs                         | delete-fpga-image                       
+delete-internet-gateway                  | delete-key-pair                         
+delete-launch-template                   | delete-launch-template-versions         
+delete-local-gateway-route               | delete-local-gateway-route-table-vpc-association
+delete-managed-prefix-list               | delete-nat-gateway                      
+delete-network-acl                       | delete-network-acl-entry                
+delete-network-interface                 | delete-network-interface-permission     
+delete-placement-group                   | delete-queued-reserved-instances        
+delete-route                             | delete-route-table                      
+delete-security-group                    | delete-snapshot                         
+delete-spot-datafeed-subscription        | delete-subnet                           
+delete-tags                              | delete-traffic-mirror-filter            
+delete-traffic-mirror-filter-rule        | delete-traffic-mirror-session           
+delete-traffic-mirror-target             | delete-transit-gateway                  
+delete-transit-gateway-multicast-domain  | delete-transit-gateway-peering-attachment
+delete-transit-gateway-prefix-list-reference | delete-transit-gateway-route            
+delete-transit-gateway-route-table       | delete-transit-gateway-vpc-attachment   
+delete-volume                            | delete-vpc                              
+delete-vpc-endpoint-connection-notifications | delete-vpc-endpoint-service-configurations
+delete-vpc-endpoints                     | delete-vpc-peering-connection           
+delete-vpn-connection                    | delete-vpn-connection-route             
+delete-vpn-gateway                       | deprovision-byoip-cidr                  
+deregister-image                         | deregister-instance-event-notification-attributes
+deregister-transit-gateway-multicast-group-members | deregister-transit-gateway-multicast-group-sources
+describe-account-attributes              | describe-addresses                      
+describe-aggregate-id-format             | describe-availability-zones             
+describe-bundle-tasks                    | describe-byoip-cidrs                    
+describe-capacity-reservations           | describe-carrier-gateways               
+describe-classic-link-instances          | describe-client-vpn-authorization-rules 
+describe-client-vpn-connections          | describe-client-vpn-endpoints           
+describe-client-vpn-routes               | describe-client-vpn-target-networks     
+describe-coip-pools                      | describe-conversion-tasks               
+describe-customer-gateways               | describe-dhcp-options                   
+describe-egress-only-internet-gateways   | describe-elastic-gpus                   
+describe-export-image-tasks              | describe-export-tasks                   
+describe-fast-snapshot-restores          | describe-fleet-history                  
+describe-fleet-instances                 | describe-fleets                         
+describe-flow-logs                       | describe-fpga-image-attribute           
+describe-fpga-images                     | describe-host-reservation-offerings     
+describe-host-reservations               | describe-hosts                          
+describe-iam-instance-profile-associations | describe-id-format                      
+describe-identity-id-format              | describe-image-attribute                
+describe-images                          | describe-import-image-tasks             
+describe-import-snapshot-tasks           | describe-instance-attribute             
+describe-instance-credit-specifications  | describe-instance-event-notification-attributes
+describe-instance-status                 | describe-instance-type-offerings        
+describe-instance-types                  | describe-instances                      
+describe-internet-gateways               | describe-ipv6-pools                     
+describe-key-pairs                       | describe-launch-template-versions       
+describe-launch-templates                | describe-local-gateway-route-table-virtual-interface-group-associations
+describe-local-gateway-route-table-vpc-associations | describe-local-gateway-route-tables     
+describe-local-gateway-virtual-interface-groups | describe-local-gateway-virtual-interfaces
+describe-local-gateways                  | describe-managed-prefix-lists           
+describe-moving-addresses                | describe-nat-gateways                   
+describe-network-acls                    | describe-network-interface-attribute    
+describe-network-interface-permissions   | describe-network-interfaces             
+describe-placement-groups                | describe-prefix-lists                   
+describe-principal-id-format             | describe-public-ipv4-pools              
+describe-regions                         | describe-reserved-instances             
+describe-reserved-instances-listings     | describe-reserved-instances-modifications
+describe-reserved-instances-offerings    | describe-route-tables                   
+describe-scheduled-instance-availability | describe-scheduled-instances            
+describe-security-group-references       | describe-security-groups                
+describe-snapshot-attribute              | describe-snapshots                      
+describe-spot-datafeed-subscription      | describe-spot-fleet-instances           
+describe-spot-fleet-request-history      | describe-spot-fleet-requests            
+describe-spot-instance-requests          | describe-spot-price-history             
+describe-stale-security-groups           | describe-subnets                        
+describe-tags                            | describe-traffic-mirror-filters         
+describe-traffic-mirror-sessions         | describe-traffic-mirror-targets         
+describe-transit-gateway-attachments     | describe-transit-gateway-multicast-domains
+describe-transit-gateway-peering-attachments | describe-transit-gateway-route-tables   
+describe-transit-gateway-vpc-attachments | describe-transit-gateways               
+describe-volume-attribute                | describe-volume-status                  
+describe-volumes                         | describe-volumes-modifications          
+describe-vpc-attribute                   | describe-vpc-classic-link               
+describe-vpc-classic-link-dns-support    | describe-vpc-endpoint-connection-notifications
+describe-vpc-endpoint-connections        | describe-vpc-endpoint-service-configurations
+describe-vpc-endpoint-service-permissions | describe-vpc-endpoint-services          
+describe-vpc-endpoints                   | describe-vpc-peering-connections        
+describe-vpcs                            | describe-vpn-connections                
+describe-vpn-gateways                    | detach-classic-link-vpc                 
+detach-internet-gateway                  | detach-network-interface                
+detach-volume                            | detach-vpn-gateway                      
+disable-ebs-encryption-by-default        | disable-fast-snapshot-restores          
+disable-transit-gateway-route-table-propagation | disable-vgw-route-propagation           
+disable-vpc-classic-link                 | disable-vpc-classic-link-dns-support    
+disassociate-address                     | disassociate-client-vpn-target-network  
+disassociate-iam-instance-profile        | disassociate-route-table                
+disassociate-subnet-cidr-block           | disassociate-transit-gateway-multicast-domain
+disassociate-transit-gateway-route-table | disassociate-vpc-cidr-block             
+enable-ebs-encryption-by-default         | enable-fast-snapshot-restores           
+enable-transit-gateway-route-table-propagation | enable-vgw-route-propagation            
+enable-volume-io                         | enable-vpc-classic-link                 
+enable-vpc-classic-link-dns-support      | export-client-vpn-client-certificate-revocation-list
+export-client-vpn-client-configuration   | export-image                            
+export-transit-gateway-routes            | get-associated-ipv6-pool-cidrs          
+get-capacity-reservation-usage           | get-coip-pool-usage                     
+get-console-output                       | get-console-screenshot                  
+get-default-credit-specification         | get-ebs-default-kms-key-id              
+get-ebs-encryption-by-default            | get-groups-for-capacity-reservation     
+get-host-reservation-purchase-preview    | get-launch-template-data                
+get-managed-prefix-list-associations     | get-managed-prefix-list-entries         
+get-password-data                        | get-reserved-instances-exchange-quote   
+get-transit-gateway-attachment-propagations | get-transit-gateway-multicast-domain-associations
+get-transit-gateway-prefix-list-references | get-transit-gateway-route-table-associations
+get-transit-gateway-route-table-propagations | import-client-vpn-client-certificate-revocation-list
+import-image                             | import-key-pair                         
+import-snapshot                          | modify-availability-zone-group          
+modify-capacity-reservation              | modify-client-vpn-endpoint              
+modify-default-credit-specification      | modify-ebs-default-kms-key-id           
+modify-fleet                             | modify-fpga-image-attribute             
+modify-hosts                             | modify-id-format                        
+modify-identity-id-format                | modify-image-attribute                  
+modify-instance-attribute                | modify-instance-capacity-reservation-attributes
+modify-instance-credit-specification     | modify-instance-event-start-time        
+modify-instance-metadata-options         | modify-instance-placement               
+modify-launch-template                   | modify-managed-prefix-list              
+modify-network-interface-attribute       | modify-reserved-instances               
+modify-snapshot-attribute                | modify-spot-fleet-request               
+modify-subnet-attribute                  | modify-traffic-mirror-filter-network-services
+modify-traffic-mirror-filter-rule        | modify-traffic-mirror-session           
+modify-transit-gateway                   | modify-transit-gateway-prefix-list-reference
+modify-transit-gateway-vpc-attachment    | modify-volume                           
+modify-volume-attribute                  | modify-vpc-attribute                    
+modify-vpc-endpoint                      | modify-vpc-endpoint-connection-notification
+modify-vpc-endpoint-service-configuration | modify-vpc-endpoint-service-permissions 
+modify-vpc-peering-connection-options    | modify-vpc-tenancy                      
+modify-vpn-connection                    | modify-vpn-connection-options           
+modify-vpn-tunnel-certificate            | modify-vpn-tunnel-options               
+monitor-instances                        | move-address-to-vpc                     
+provision-byoip-cidr                     | purchase-host-reservation               
+purchase-reserved-instances-offering     | purchase-scheduled-instances            
+reboot-instances                         | register-image                          
+register-instance-event-notification-attributes | register-transit-gateway-multicast-group-members
+register-transit-gateway-multicast-group-sources | reject-transit-gateway-peering-attachment
+reject-transit-gateway-vpc-attachment    | reject-vpc-endpoint-connections         
+reject-vpc-peering-connection            | release-address                         
+release-hosts                            | replace-iam-instance-profile-association
+replace-network-acl-association          | replace-network-acl-entry               
+replace-route                            | replace-route-table-association         
+replace-transit-gateway-route            | report-instance-status                  
+request-spot-fleet                       | request-spot-instances                  
+reset-ebs-default-kms-key-id             | reset-fpga-image-attribute              
+reset-image-attribute                    | reset-instance-attribute                
+reset-network-interface-attribute        | reset-snapshot-attribute                
+restore-address-to-classic               | restore-managed-prefix-list-version     
+revoke-client-vpn-ingress                | revoke-security-group-egress            
+revoke-security-group-ingress            | run-instances                           
+run-scheduled-instances                  | search-local-gateway-routes             
+search-transit-gateway-multicast-groups  | search-transit-gateway-routes           
+send-diagnostic-interrupt                | start-instances                         
+start-vpc-endpoint-service-private-dns-verification | stop-instances                          
+terminate-client-vpn-connections         | terminate-instances                     
+unassign-ipv6-addresses                  | unassign-private-ip-addresses           
+unmonitor-instances                      | update-security-group-rule-descriptions-egress
+update-security-group-rule-descriptions-ingress | withdraw-byoip-cidr                     
+wait                                     | help                                    
+
+
+Invalid choice: 'describr-instances', maybe you meant:
+
+  * describe-instances
+  * describe-instance-types
+  * describe-instance-status
+[ec2-user@cli-host ~]$ ls
+sysops-activity-files
+[ec2-user@cli-host ~]$ cd sysops-activity-files/
+[ec2-user@cli-host sysops-activity-files]$ ls
+starters  static-site-solution  static-site-solution.tar.gz
+[ec2-user@cli-host sysops-activity-files]$ cd starters/
+[ec2-user@cli-host starters]$ ls
+create-lamp-instance.sh  create-lamp-instance-userdata.txt
+[ec2-user@cli-host starters]$ sudo nano create-lamp-instance
+[ec2-user@cli-host starters]$ sudo nano create-lamp-instance.sh
+[ec2-user@cli-host starters]$ cat create-lamp-instance-userdata.txt
+#!/bin/bash
+yum -y update
+amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+yum -y install httpd mariadb-server
+
+systemctl enable httpd
+systemctl start httpd
+
+systemctl enable mariadb
+systemctl start mariadb
+
+echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
+find /var/www -type d -exec chmod 2775 {} \;
+find /var/www -type f -exec chmod 0664 {} \;
+echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+
+usermod -a -G apache ec2-user
+chown -R ec2-user:apache /var/www
+chmod 2775 /var/www
+
+#Check /var/log/cloud-init-output.log after this runs to see errors, if any.
+
+#
+# Download and unzip the Mom & Pop Cafe application files.
+#
+
+# Database scripts
+wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/ILT-TF-200-ACSOPS-1/activity-3/momPopDb.tar.gz
+tar -zxvf momPopDb.tar.gz
+
+# Web application files
+wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/ILT-TF-200-ACSOPS-1/activity-3/mompopcafe.tar.gz
+tar -zxvf mompopcafe.tar.gz -C /var/www/html/
+
+#
+# Run the scripts to set the database root password, and create and populate the application database.
+# Check the following logs to make sure there are no errors:
+#
+#       /momPopDb/set-root-password.log
+#       /momPopDb/create-db.log
+#
+cd momPopDb
+./set-root-password.sh
+./create-db.sh
+hostnamectl set-hostname web-server
+[ec2-user@cli-host starters]$ sh create-lamp-instance.sh
+
+Running create-instance.sh on 2026-01-12 04:12:07
+
+Region: eu-west-2
+Instance Type: t2.small
+Profile: default
+
+Looking up account values...
+VPC: 
+Subnet Id: 
+Key: vockey
+AMI ID: ami-0ad8de99ac93341e7
+
+Creating a new security group...
+Note: AWS CLI version 2, the latest major version of the AWS CLI, is now stable and recommended for general use. For more information, see the AWS CLI version 2 installation instructions at: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+aws: error: argument --vpc-id: expected one argument
+Security Group: 
+
+Opening port 22 in the new security group
+Note: AWS CLI version 2, the latest major version of the AWS CLI, is now stable and recommended for general use. For more information, see the AWS CLI version 2 installation instructions at: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+aws: error: argument --group-id: expected one argument
+Opening port 80 in the new security group
+Note: AWS CLI version 2, the latest major version of the AWS CLI, is now stable and recommended for general use. For more information, see the AWS CLI version 2 installation instructions at: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+aws: error: argument --group-id: expected one argument
+
+Creating an EC2 instance in eu-west-2
+Note: AWS CLI version 2, the latest major version of the AWS CLI, is now stable and recommended for general use. For more information, see the AWS CLI version 2 installation instructions at: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+aws: error: argument --subnet-id: expected one argument
+[ec2-user@cli-host starters]$ sudo nano create-lamp-instance.sh
+[ec2-user@cli-host starters]$ sh create-lamp-instance.sh
+
+Running create-instance.sh on 2026-01-12 04:17:37
+
+Region: us-east-1
+Instance Type: t2.small
+Profile: default
+
+Looking up account values...
+VPC: vpc-0ba602e7d22e9c163
+Subnet Id: subnet-0573b32a7ad540566
+Key: vockey
+AMI ID: ami-03f9680ef0c07a3d1
+
+Creating a new security group...
+Security Group: sg-0e891bb6fb3e15769
+
+Opening port 22 in the new security group
+Opening port 80 in the new security group
+
+Creating an EC2 instance in us-east-1
+
+Instance Details....
+{
+    "Groups": [],
+    "Instances": [
+        {
+            "AmiLaunchIndex": 0,
+            "Architecture": "x86_64",
+            "BlockDeviceMappings": [],
+            "CapacityReservationSpecification": {
+                "CapacityReservationPreference": "open"
+            },
+            "ClientToken": "687a561b-5482-49d0-957c-97fee45e76bf",
+            "CpuOptions": {
+                "CoreCount": 1,
+                "ThreadsPerCore": 1
+            },
+            "EbsOptimized": false,
+            "EnaSupport": true,
+            "Hypervisor": "xen",
+            "ImageId": "ami-03f9680ef0c07a3d1",
+            "InstanceId": "i-02a5a0397e9c6ba76",
+            "InstanceType": "t2.small",
+            "LaunchTime": "2026-01-12T04:17:46.000Z",
+            "MetadataOptions": {
+                "HttpEndpoint": "enabled",
+                "HttpPutResponseHopLimit": 1,
+                "HttpTokens": "optional",
+                "State": "pending"
+            },
+            "Monitoring": {
+                "State": "disabled"
+            },
+            "NetworkInterfaces": [
+                {
+                    "Attachment": {
+                        "AttachTime": "2026-01-12T04:17:46.000Z",
+                        "AttachmentId": "eni-attach-0dcffc0c041c4060a",
+                        "DeleteOnTermination": true,
+                        "DeviceIndex": 0,
+                        "Status": "attaching"
+                    },
+                    "Description": "",
+                    "Groups": [
+                        {
+                            "GroupId": "sg-0e891bb6fb3e15769",
+                            "GroupName": "mompopcafeSG"
+                        }
+                    ],
+                    "InterfaceType": "interface",
+                    "Ipv6Addresses": [],
+                    "MacAddress": "0a:ff:c0:fd:54:db",
+                    "NetworkInterfaceId": "eni-006a18ed70552f966",
+                    "OwnerId": "847670080672",
+                    "PrivateIpAddress": "10.200.0.227",
+                    "PrivateIpAddresses": [
+                        {
+                            "Primary": true,
+                            "PrivateIpAddress": "10.200.0.227"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Status": "in-use",
+                    "SubnetId": "subnet-0573b32a7ad540566",
+                    "VpcId": "vpc-0ba602e7d22e9c163"
+                }
+            ],
+            "Placement": {
+                "AvailabilityZone": "us-east-1a",
+                "GroupName": "",
+                "Tenancy": "default"
+            },
+            "PrivateDnsName": "ip-10-200-0-227.ec2.internal",
+            "PrivateIpAddress": "10.200.0.227",
+            "ProductCodes": [],
+            "PublicDnsName": "",
+            "RootDeviceName": "/dev/xvda",
+            "RootDeviceType": "ebs",
+            "SecurityGroups": [
+                {
+                    "GroupId": "sg-0e891bb6fb3e15769",
+                    "GroupName": "mompopcafeSG"
+                }
+            ],
+            "SourceDestCheck": true,
+            "State": {
+                "Code": 0,
+                "Name": "pending"
+            },
+            "StateReason": {
+                "Code": "pending",
+                "Message": "pending"
+            },
+            "StateTransitionReason": "",
+            "SubnetId": "subnet-0573b32a7ad540566",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "mompopcafeserver"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "VpcId": "vpc-0ba602e7d22e9c163"
+        }
+    ],
+    "OwnerId": "847670080672",
+    "ReservationId": "r-019bc44354b3c04f2"
+}
+instanceId=i-02a5a0397e9c6ba76
+
+Waiting for a public IP for the new instance...
+
+The public IP of your LAMP instance is: 54.167.122.177
+
+Download the Key Pair from the Qwiklabs page.
+
+Then connect using this command (with .pem or .ppk added to the end of the keypair name):
+ssh -i path-to/vockey ec2-user@54.167.122.177
+
+The website should also become available at
+http://54.167.122.177/mompopcafe/
+
+
+Done running create-instance.sh at 2026-01-12 04:17:57
+
+[ec2-user@cli-host starters]$ 
