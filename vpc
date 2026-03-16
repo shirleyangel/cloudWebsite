@@ -1,0 +1,68 @@
+####SSH TO Bastion Host##########
+
+
+
+#######Get Region Details of AWS CLI#########
+
+curl http://169.254.169.254/latest/dynamic/instance-identity/document | grep region
+
+
+
+########Enable VPC Flow Logs to S3 Bucket########
+
+aws s3api create-bucket --bucket flowlog1234 --region <region> --create-bucket-configuration LocationConstraint=<region>
+
+
+#### Get VPC ID to Generate Flow Log of VPC########
+
+aws ec2 describe-vpcs --query 'Vpcs[*].[VpcId,Tags[?Key==`Name`].Value,CidrBlock]' --filters "Name=tag:Name,Values='VPC1'"
+
+####Enable Flow Log to Bucket######
+
+aws ec2 create-flow-logs --resource-type VPC --resource-ids <vpc-id> --traffic-type ALL --log-destination-type s3 --log-destination arn:aws:s3:::<flowlog####>
+
+#### Confirm Flow Log is Created####
+
+aws ec2 describe-flow-logs
+
+
+
+
+#####Analyze and troubleshoot access to resources#######
+
+
+aws ec2 describe-instances --filter "Name=ip-address,Values='<WebServerIP>'"
+
+
+
+aws ec2 describe-instances --filter "Name=ip-address,Values='<WebServerIP>'" --query 'Reservations[*].Instances[*].[State,PrivateIpAddress,InstanceId,SecurityGroups,SubnetId,KeyName]'
+
+
+
+
+Use nmap command
+
+aws ec2 describe-security-groups
+
+aws ec2 describe-route-tables
+
+
+####Trouble Shoot SSH Connection to WebServer####
+
+aws ec2 describe-network-acls --filter "Name=association.subnet-id,Values='VPC1PublicSubnetID'" --query 'NetworkAcls[*].[NetworkAclId,Entries]'
+
+delete-network-acl-entry 
+
+aws ec2 describe-network-acls --network-acl-id <your-nacl-id>
+
+
+aws ec2 delete-network-acl-entry --network-acl-id acl-0904e6895a548d245 --rule-number 101 --ingress
+
+
+
+########Download and extract the flow logs#########
+
+mkdir flowlogs
+cd flowlogs
+aws s3 ls
+aws s3 cp s3://<flowlog####>/ . --recursive
